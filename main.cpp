@@ -19,23 +19,16 @@ private:
     }
 
     void battle(int &curr_position,
-                int &curr_power,
-                int &last_skip)
+                int &curr_power)
     {
         curr_power -= enemy_rings[curr_position];
-        if (curr_position == 4 && last_skip == 3)
-            curr_power -= enemy_rings[3] / 2;
-        if (curr_position == 7 && last_skip == 6)
-            curr_power -= enemy_rings[6] / 2;
         curr_position++;
         return;
     }
 
     void skip(int &curr_position,
-              int &skips_left,
-              int &last_skip)
+              int &skips_left)
     {
-        last_skip = curr_position;
         curr_position++;
         skips_left--;
         return;
@@ -44,8 +37,7 @@ private:
     bool shouldBattle(int &curr_position,
                       int &curr_power,
                       int &skips_left,
-                      int &recharges_left,
-                      int &last_skip)
+                      int &recharges_left)
     {
         if (curr_power < enemy_rings[curr_position])
         {
@@ -53,50 +45,50 @@ private:
                 return false;
             heal(curr_power, recharges_left);
         }
-        battle(curr_position, curr_power, last_skip);
+        battle(curr_position, curr_power);
         if (curr_position >= 11)
             return true;
         return canCrossChakravyuh(curr_position,
                                   curr_power,
                                   skips_left,
-                                  recharges_left,
-                                  last_skip);
+                                  recharges_left);
     }
 
     bool shouldSkip(int &curr_position,
                     int &curr_power,
                     int &skips_left,
-                    int &recharges_left,
-                    int &last_skip)
+                    int &recharges_left)
     {
         if (skips_left <= 0)
             return false;
         if (curr_position >= 10)
             return true;
-        skip(curr_position, skips_left, last_skip);
+        skip(curr_position, skips_left);
         return canCrossChakravyuh(curr_position,
                                   curr_power,
                                   skips_left,
-                                  recharges_left,
-                                  last_skip);
+                                  recharges_left);
     }
 
     bool canCrossChakravyuh(int curr_position,
                             int curr_power,
                             int skips_left,
-                            int recharges_left,
-                            int last_skip)
+                            int recharges_left)
     {
+        // If the player is at the 4th or 8th ring
+        if (curr_position == 3)
+            curr_power -= enemy_rings[2] / 2;
+        if (curr_position == 7)
+            curr_power -= enemy_rings[6] / 2;
+
         bool should_battle = shouldBattle(curr_position,
                                           curr_power,
                                           skips_left,
-                                          recharges_left,
-                                          last_skip);
+                                          recharges_left);
         bool should_skip = shouldSkip(curr_position,
                                       curr_power,
                                       skips_left,
-                                      recharges_left,
-                                      last_skip);
+                                      recharges_left);
 
         return should_battle || should_skip;
     }
@@ -121,13 +113,11 @@ public:
         int curr_power = initial_power;
         int skips_left = skips;
         int recharges_left = recharges;
-        int last_skip = -1;
 
         return canCrossChakravyuh(curr_position,
                                   curr_power,
                                   skips_left,
-                                  recharges_left,
-                                  last_skip);
+                                  recharges_left);
     }
 };
 

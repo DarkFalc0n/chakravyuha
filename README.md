@@ -23,13 +23,15 @@ To fill in the gaps of the problem statement, I have taken the liberty to assume
 
 - `k1` is the innermost circle, and `k11` is the outermost.
 - Abhmanyu recharges himself fully upto his initial power `p` from any power value he currently has.
-- The boon of the `k3` and `k7` enemies does not work (they will not attack Abhimanyu from behind) if they are skipped.
-- The `k3` and `k7` enemies cannot attack Abhimanyu if he skips the iteratively next circle, as they can only attack from behind if **he is battling in the next circle**.
-  > ...can attack Abhimanyu from behind if he is battling in iteratively next circle.
+- The boon of the `k3` and `k7` enemies work even if they are skipped. (They will attack Abhimanyu from behind with half their power.)
+- The `k3` and `k7` enemies will attack Abhimanyu even if he decides to skip the iteratively next circle.
 
 ## Algorithmic Analysis
 
 At each circle, Abhimanyu has the choice of either `battling` or `skipping`.
-We use a recursive function to determine the same. In the code,
+
+1. Recursive Method: We use a recursive function to determine if Abhimanyu can cross the Chakravyuh. In the code, the function `canCrossChakravyuh()` is a recursive function, the functions `shouldBattle()` and `shouldSkip()` represent the two recursive branches.
 
 ## Technical Details
+
+1. Time Complexity:
