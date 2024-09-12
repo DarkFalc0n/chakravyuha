@@ -34,4 +34,5 @@ At each circle, Abhimanyu has the choice of either `battling` or `skipping`.
 
 ## Technical Details
 
-1. Time Complexity:
+1. Time Complexity: O(2<sup>n</sup>), as there are two recursion branches.
+2. Space Complexity: O(n) auxillary space as the recursive stack.
